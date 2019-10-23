@@ -1,0 +1,331 @@
+openapi: 3.0.1
+
+info:
+  title: API Tarefas
+  version: 1.0.0
+  description: "Documentação para acesso a API Tarefas"
+
+servers:
+- url: http://localhost:3009/api/v1/
+
+tags:
+- name: Categorias
+- name: Tarefas
+
+paths:
+  
+  # Categorias
+  /categorias:
+    get:
+      tags:
+      - Categorias
+      summary: Lista todos os tipos de categorias
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/categorias'
+        404:
+          description: Nenhuma categoria cadastrada
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+          
+    post:
+      tags:
+      - Categorias
+      summary: Adiciona uma nova categoria de tarefas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/categorias'
+        required: true
+      responses:
+        201:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/categorias'
+        500:
+          description: Internal Server Error
+          content: {}
+  
+  /categorias/{id}:
+    get:
+      tags:
+      - Categorias
+      summary: Lista uma categoria através do seu id
+      parameters:
+      - name: id
+        in: path
+        description: id da categoria
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/categorias'
+        404:
+          description: Nenhuma categoria cadastrada com esse id
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+    
+    put:
+      tags:
+      - Categorias
+      summary: Altera dados de uma categoria
+      parameters:
+      - name: id
+        in: path
+        description: id da categoria
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/categorias'
+        required: true
+      responses:
+        202:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/categorias'
+        404:
+          description: Nenhuma categoria cadastrada com esse id
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+    
+    delete:
+      tags:
+      - Categorias
+      summary: Deleta uma categoria através do seu id
+      parameters:
+      - name: id
+        in: path
+        description: id da categoria
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/categorias'
+        404:
+          description: Nenhuma categoria cadastrada com esse id
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+  
+  # Tarefas
+  /tarefas:
+    get:
+      tags:
+      - Tarefas
+      summary: Lista todas as tarefas
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/tarefas'
+        404:
+          description: Nenhuma tarefa cadastrada
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+    
+    post:
+      tags:
+      - Tarefas
+      summary: Adiciona uma nova tarefa
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tarefas'
+        required: true
+      responses:
+        201:
+          description: Tarefa cadastrada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tarefas'
+        500:
+          description: Internal Server Error
+          content: {}
+          
+  # /tarefas/f/{descricao}:
+  /tarefas?f=descricao:
+    get:
+      tags:
+      - Tarefas
+      summary: Lista uma tarefa através do seu id
+      parameters:
+      - name: descricao
+        in: query
+        description: descrição da tarefa
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/tarefas'
+        404:
+          description: Nenhuma tarefa cadastrada com esse id
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+          
+  /tarefas/{id}:
+    get:
+      tags:
+      - Tarefas
+      summary: Lista uma tarefa através do seu id
+      parameters:
+      - name: id
+        in: path
+        description: id da tarefa
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tarefas'
+        404:
+          description: Nenhuma tarefa cadastrada com esse id
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+    
+    put:
+      tags:
+      - Tarefas
+      summary: Altera dados de uma tarefa
+      parameters:
+      - name: id
+        in: path
+        description: id da tarefa
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tarefas'
+        required: true
+      responses:
+        202:
+          description: Tarefa alterada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tarefas'
+        404:
+          description: Nenhuma tarefa cadastrada com esse id
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+    
+    delete:
+      tags:
+      - Tarefas
+      summary: Deleta uma tarefa através do seu id
+      parameters:
+      - name: id
+        in: path
+        description: id da tarefa
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Tarefa deletada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tarefas'
+        404:
+          description: Nenhuma tarefa cadastrada com esse id
+          content: {}
+        500:
+          description: Internal Server Error
+          content: {}
+
+components:
+  
+  schemas:
+    
+    Categoria:
+      required:
+      - id
+      - descricao
+      - cor
+      type: object
+      properties:
+        id:
+          type: integer
+        descricao:
+          type: string
+        cor:
+          type: string
+    
+    Tarefa:
+      required:
+      - id
+      - descricao
+      - data
+      - categoria_id
+      type: object
+      properties:
+        id:
+          type: integer
+        descricao:
+          type: string
+        data:
+          type: string
+        realizado:
+          type: boolean
+        categoria_id:
+          type: integer
